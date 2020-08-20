@@ -1,0 +1,79 @@
+---
+title: "Chicken Feed"
+author: "Dr. J, Emperor"
+date: "3/03/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+##  Chicken feed study  
+
+data set has chicken weights and 4 variables:
+  1.  chicken weight  
+  2.  chicken feed type  
+  3.  chicken time in the 40" run  
+  4.  chicken sex   
+
+Idea is to determine which of the variables affect chicken weight 
+The weight and time to run are numerical variables, gender and feed type are categorical variables
+
+So we'll use templatesRMD Cat Numerical, look for the section that has an 'aov'
+
+<!-- This question is like a bunch of t-tests, but instead of doing the t-test a bunch of times we use ANOVA to do all the comparisons at once!  !-->
+
+### get the data
+
+```{r}
+chickenData = read.csv('chickens.csv')
+head(chickenData)
+attach(chickenData)
+```
+
+### Graphical summary
+
+<!-- plot chicken weight against each of the three explanatory variables.  Weight against a categorial varable is a boxplot, weight against a numerical variable is a scatter plot !-->
+
+boxplot of weight based on feed 
+
+```{r}
+plot(weight~feed,data=chickenData)
+```
+  
+  It appears that the feed type has an effect.  Sunflower the best?
+
+```{r}
+plot(weight~speed,data=chickenData)
+```
+
+There does not appear to be any relationship between speed and weight
+
+
+
+ 
+### Numerical summary
+
+```{r}
+summary(chickenData)
+```
+This is a summary of all the data in chickenData
+ 
+
+### Inference -- Analysis of Variance
+
+```{r}
+model1 = lm(weight~feed+speed+sex, data=chickenData)
+anova(model1)
+```
+
+this ANOVA says only feed affects chicken weight
+
+
+###  Conclusions  -- which variables affect chicken weight?
+
+Here is my brilliant conclusion
+
+
